@@ -70,9 +70,9 @@ Gen Z and Millennials: students, young adults and young professionals who want s
 | 4 | Contact | `pages/contact.html` |
 | 5 | Privacy Policy | `pages/privacy.html` |
 | 6 | Terms and Conditions | `pages/terms.html` |
-| 7 | Don't Be Late Tee | `pages/product-1.html` |
-| 8 | Everyday Comfort Tee | `pages/product-2.html` |
-| 9 | Do Good Work Tee | `pages/product-3.html` |
+| 7 | Don't Be Late Tee | `pages/dont-be-late.html` |
+| 8 | Everyday Comfort Tee | `pages/everyday-comfort.html` |
+| 9 | Do Good Work Tee | `pages/do-good-work.html` |
 
 ### 🛍️ Products (₱499 each)
 
