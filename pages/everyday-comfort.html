@@ -4,121 +4,197 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Everyday Comfort Tee | Thread Haus</title>
+    <meta name="description" content="Everyday Comfort Tee by Thread Haus. Unisex sizes XS to XXL, PHP 499.">
+
+    <!-- Bootstrap 5.3 (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-yEPZ7jP9S0QKiUQ0m3jjsO4ProIW7wvR9gXkI7JOGa2XVsw53Yke2bsdkBbjmmiX" crossorigin="anonymous">
+
+    <!-- Brand fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom styles (after Bootstrap) -->
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+    <a href="#main" class="skip-link visually-hidden-focusable">Skip to main content</a>
 
-    <!-- HEADER -->
-    <header class="header">
-        <div class="header-logo">
-            <a href="../index.html">
-                <img src="../images/logo.png" alt="Thread Haus Logo">
-            </a>
-        </div>
-
-        <nav class="header-navigation" aria-label="Main navigation">
-            <a href="../index.html">Home</a>
-            <a href="../index.html#shop" class="active" aria-current="page">Shop</a>
-            <a href="../index.html#about">About</a>
-            <a href="contact.html">Contact</a>
+    <!-- HEADER / NAVBAR -->
+    <header class="site-header sticky-top">
+        <nav class="navbar navbar-expand-lg bg-white" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">
+                    <img src="../images/logo.png" alt="Thread Haus home" width="140" height="44">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav me-auto ms-lg-4">
+                        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="../index.html#shop">Shop</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    </ul>
+                    <form class="site-search" role="search">
+                        <div class="input-group">
+                            <input class="form-control" type="search" name="q" placeholder="What are you looking for?" aria-label="Search products">
+                            <button class="btn btn-dark" type="submit" aria-label="Search">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </nav>
-
-        <div class="header-search">
-            <input type="search" name="site-search" placeholder="What are you looking for?" aria-label="Search the website">
-            <button type="button" aria-label="Search"></button>
-        </div>
     </header>
 
-    <!-- PRODUCT PAGE -->
-    <main class="product-page" data-product="Everyday Comfort Tee" data-price="499">
+    <main id="main" class="container product-page py-4 py-lg-5" data-product="Everyday Comfort Tee" data-price="499">
 
-        <!-- GALLERY -->
-        <section class="product-gallery" aria-label="Product photos">
-            <div class="product-main-image">
-                <img src="../images/everyday_comfort.png" alt="Everyday Comfort Tee">
-                <button type="button" class="gallery-arrow prev" aria-label="Previous photo"></button>
-                <button type="button" class="gallery-arrow next" aria-label="Next photo"></button>
-            </div>
-
-            <div class="product-thumbs">
-                <button type="button" class="active" data-src="../images/everyday_comfort.png" aria-label="Front view">
-                    <img src="../images/everyday_comfort.png" alt="">
-                </button>
-                <button type="button" data-src="../images/everyday_comfort.png" data-zoom="true" aria-label="Print close-up">
-                    <img src="../images/everyday_comfort.png" alt="" class="zoomed">
-                </button>
-            </div>
-        </section>
-
-        <!-- DETAILS -->
-        <section class="product-info" aria-labelledby="product-title">
-            <h1 id="product-title">Everyday Comfort Tee</h1>
-            <p class="product-price">&#8369;499</p>
-
-            <div class="product-block">
-                <h2>PRODUCT DESCRIPTION</h2>
-                <p>An easy everyday essential made for repeat wear. A cheerful reminder to slow down, take it easy, and find comfort in the little things.</p>
-                <p class="product-meta">Unisex sizing &bull; 100% combed cotton &bull; Designed by Thread Haus</p>
-            </div>
-
-            <div class="product-block">
-                <h2 id="size-label">SIZES</h2>
-                <div class="size-options" role="group" aria-labelledby="size-label">
-                    <button type="button" aria-pressed="false">XS</button>
-                    <button type="button" aria-pressed="false">S</button>
-                    <button type="button" aria-pressed="true">M</button>
-                    <button type="button" aria-pressed="false">L</button>
-                    <button type="button" aria-pressed="false">XL</button>
-                    <button type="button" aria-pressed="false">XXL</button>
+        <div class="row g-4 g-lg-5">
+            <!-- GALLERY -->
+            <section class="col-lg-6" aria-label="Product photos">
+                <div id="productGallery" class="carousel slide product-gallery">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="../images/everyday_comfort.png" class="d-block w-100 pad" alt="Everyday Comfort Tee, front view: white tee with a yellow frame, everyday COMFORT text and a smiley face">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="../images/everyday_comfort.png" class="d-block w-100 zoomed" alt="Close-up of the everyday COMFORT print and smiley face">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#productGallery" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous photo</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#productGallery" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next photo</span>
+                    </button>
                 </div>
-                <button type="button" class="size-guide-link">Size Guide</button>
 
-                <h2 id="qty-label" class="qty-heading">QUANTITY</h2>
-                <div class="quantity" role="group" aria-labelledby="qty-label">
-                    <button type="button" class="qty-minus" aria-label="Decrease quantity">&minus;</button>
-                    <input type="number" class="qty-input" value="1" min="1" max="10" aria-label="Quantity">
-                    <button type="button" class="qty-plus" aria-label="Increase quantity">+</button>
+                <div class="row g-2 mt-2 product-thumbs">
+                    <div class="col-4">
+                        <button type="button" class="thumb active" data-bs-target="#productGallery" data-bs-slide-to="0" aria-current="true">
+                            <img src="../images/everyday_comfort.png" alt="Show front of the T-shirt">
+                        </button>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="thumb" data-bs-target="#productGallery" data-bs-slide-to="1">
+                            <img src="../images/everyday_comfort.png" class="zoomed" alt="Show print close-up">
+                        </button>
+                    </div>
                 </div>
-                <p class="stock-status">In Stock</p>
+            </section>
+            <!-- /GALLERY -->
 
-                <div class="product-actions">
-                    <a href="mailto:orders@examplewebsite142.com" class="order-now">ORDER NOW</a>
-                    <a href="../index.html#shop" class="btn-secondary">Explore more tees</a>
+            <!-- DETAILS -->
+            <section class="col-lg-6 product-info" aria-labelledby="product-title">
+                <h1 id="product-title">Everyday Comfort Tee</h1>
+                <p class="product-price">&#8369;499</p>
+
+                <div class="product-block">
+                    <h2>Product Description</h2>
+                    <p class="product-description">An everyday tee built for comfort that you can wear all day long. This tee doesn't judge, it stays for whatever sidequest or homebody days the week brings. It's also a versatile tee for your on the go days.</p>
+                    <p class="product-meta">Unisex sizing &bull; 100% combed cotton &bull; Designed by Thread Haus</p>
                 </div>
-                <p class="order-note">Your order will be confirmed via email before processing.</p>
-            </div>
-        </section>
+
+                <div class="product-block">
+                    <fieldset>
+                        <legend class="field-label">Sizes</legend>
+                        <div class="size-options">
+                            <input type="radio" class="btn-check" name="size" id="size-xs" value="XS" autocomplete="off">
+                            <label class="btn btn-size" for="size-xs">XS</label>
+                            <input type="radio" class="btn-check" name="size" id="size-s" value="S" autocomplete="off">
+                            <label class="btn btn-size" for="size-s">S</label>
+                            <input type="radio" class="btn-check" name="size" id="size-m" value="M" autocomplete="off" checked>
+                            <label class="btn btn-size" for="size-m">M</label>
+                            <input type="radio" class="btn-check" name="size" id="size-l" value="L" autocomplete="off">
+                            <label class="btn btn-size" for="size-l">L</label>
+                            <input type="radio" class="btn-check" name="size" id="size-xl" value="XL" autocomplete="off">
+                            <label class="btn btn-size" for="size-xl">XL</label>
+                            <input type="radio" class="btn-check" name="size" id="size-xxl" value="XXL" autocomplete="off">
+                            <label class="btn btn-size" for="size-xxl">XXL</label>
+                        </div>
+                    </fieldset>
+                    <div class="size-guide-link">
+                        <button type="button" class="btn btn-link" data-bs-toggle="offcanvas" data-bs-target="#sizeGuide" aria-controls="sizeGuide">View Size Guide</button>
+                    </div>
+
+                    <label for="quantity" class="field-label d-block">Quantity</label>
+                    <div class="quantity">
+                        <button class="btn qty-btn qty-minus" type="button" aria-label="Decrease quantity">&minus;</button>
+                        <input type="number" class="form-control qty-input" id="quantity" value="1" min="1" max="10" step="1" inputmode="numeric" aria-describedby="quantityHelp">
+                        <button class="btn qty-btn qty-plus" type="button" aria-label="Increase quantity">+</button>
+                    </div>
+                    <p id="quantityHelp" class="visually-hidden">Choose a quantity from 1 to 10.</p>
+                    <p class="stock-status">In Stock</p>
+
+                    <div class="product-actions">
+                        <a href="mailto:orders@examplewebsite142.com" class="btn btn-dark order-now">Order Now</a>
+                        <a href="../index.html#shop" class="btn btn-outline-dark explore-more">Explore more tees</a>
+                    </div>
+                    <p class="order-note">Your order will be confirmed via email before processing.</p>
+                </div>
+            </section>
+        </div>
     </main>
 
-    <!-- SIZE GUIDE -->
-    <dialog class="size-guide" aria-labelledby="size-guide-title">
-        <h2 id="size-guide-title">Size Guide</h2>
-        <p>Measurements in inches (unisex fit).</p>
-        <table>
-            <thead><tr><th>Size</th><th>Chest</th><th>Length</th></tr></thead>
-            <tbody>
-                <tr><td>XS</td><td>34</td><td>26</td></tr>
-                <tr><td>S</td><td>36</td><td>27</td></tr>
-                <tr><td>M</td><td>38</td><td>28</td></tr>
-                <tr><td>L</td><td>40</td><td>29</td></tr>
-                <tr><td>XL</td><td>42</td><td>30</td></tr>
-                <tr><td>XXL</td><td>44</td><td>31</td></tr>
-            </tbody>
-        </table>
-        <button type="button" class="btn-secondary size-guide-close">Close</button>
-    </dialog>
+    <!-- SIZE GUIDE PANEL (slides in from the right) -->
+    <div class="offcanvas offcanvas-end size-guide" tabindex="-1" id="sizeGuide" aria-labelledby="sizeGuideTitle">
+        <div class="offcanvas-header">
+            <h2 class="offcanvas-title" id="sizeGuideTitle">Size Guide</h2>
+            <button type="button" class="size-guide-close" data-bs-dismiss="offcanvas" aria-label="Close size guide">&times;</button>
+        </div>
+        <div class="offcanvas-body">
+            <section aria-labelledby="measurementTableTitle">
+                <div class="size-guide-section-heading">
+                    <h3 id="measurementTableTitle">Garment measurements</h3>
+                    <span>INCHES</span>
+                </div>
+                <div class="size-guide-table-wrap" role="region" aria-label="Garment measurements by size" tabindex="0">
+                    <table class="size-guide-table">
+                        <caption class="visually-hidden">T-shirt measurements in inches by size.</caption>
+                        <thead>
+                            <tr><th scope="col">Size</th><th scope="col">XS</th><th scope="col">S</th><th scope="col">M</th><th scope="col">L</th><th scope="col">XL</th><th scope="col">XXL</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><th scope="row">Length</th><td>24.4</td><td>25.2</td><td>26.4</td><td>28</td><td>28.7</td><td>29.9</td></tr>
+                            <tr><th scope="row">Arm</th><td>7.1</td><td>7.5</td><td>9.1</td><td>9.4</td><td>9.4</td><td>9.8</td></tr>
+                            <tr><th scope="row">Chest</th><td>20.1</td><td>20.9</td><td>21.7</td><td>22.8</td><td>23.6</td><td>24.8</td></tr>
+                            <tr><th scope="row">Shoulder</th><td>18.1</td><td>18.9</td><td>18.9</td><td>19.7</td><td>20.5</td><td>21.3</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="measurement-diagram-section" aria-labelledby="measurementDiagramTitle">
+                <div class="size-guide-section-heading">
+                    <h3 id="measurementDiagramTitle">How to measure</h3>
+                </div>
+                <p class="measurement-instructions">Use the diagram as a reference for the length, arm, chest, and shoulder measurements.</p>
+                <figure class="measurement-diagram">
+                    <img src="../images/size-guide-shirt.svg" alt="Blue T-shirt diagram with measurement arrows for shoulder width, chest width, sleeve length, and body length." loading="lazy">
+                </figure>
+            </section>
+        </div>
+    </div>
 
     <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-copyright">
-            <p>Thread Haus &middot; &copy; 2026 &middot; All rights reserved.</p>
-        </div>
-        <div class="footer-links">
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="terms.html">Terms</a>
+    <footer class="site-footer">
+        <div class="container py-4 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+            <p class="mb-0">Thread Haus &middot; &copy; 2026 &middot; All rights reserved.</p>
+            <nav aria-label="Footer navigation">
+                <ul class="footer-links">
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms</a></li>
+                </ul>
+            </nav>
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js" integrity="sha384-WyOxWvTyr1QaMPfiPJSv76iReVthorl5uWlFtZPyK0IEB0hGzo9y5Bp9mYanr8Bu" crossorigin="anonymous"></script>
     <script src="../js/main.js"></script>
 </body>
 </html>

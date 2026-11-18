@@ -84,16 +84,17 @@ Gen Z and Millennials: students, young adults and young professionals who want s
 
 ## ✨ Features
 
-- **Navigation bar** with the logo, page links and a product search bar. The current section is highlighted as you scroll.
+- **Navigation bar** (Bootstrap navbar) with the logo, page links and a product search bar. It collapses into a menu button on phones, and the current section is highlighted as you scroll.
 - **Hero section** with a **Shop Now** button that jumps to the product list.
-- **Product cards** with a **View Details** button that opens each solo product page.
-- **Solo product pages** with a photo gallery, size selector (XS–XXL), quantity selector, size guide and an **Explore more tees** button.
+- **Product cards** (Bootstrap grid and cards) with a **View Details** button that opens each solo product page.
+- **Solo product pages** with a photo gallery (Bootstrap carousel) and thumbnails, size selector (XS–XXL), quantity selector, a slide-in **size guide** with measurements and a diagram (Bootstrap offcanvas), and an **Explore more tees** button.
+- **Privacy Policy and Terms** shown as tabs above a scrollable document window.
 - **Order Now** opens the customer's e-mail app with the product, size, quantity and total already filled in, addressed to the store's orders e-mail.
 - **Contact form** opens the customer's e-mail app with their name, e-mail, subject and message, addressed to the store's inquiries e-mail.
 - **About section** with brand story and three core-value columns with icons.
 - **Footer** with copyright and links to the Privacy Policy and Terms.
 - **Responsive layout** for desktop, tablet and mobile.
-- **Accessibility basics:** alt text, labelled form fields, ARIA labels on icon buttons, and visible keyboard focus.
+- **Accessible and inclusive design:** skip-to-content link, alt text on every image, labelled form fields with error messages, ARIA labels on icon buttons, descriptive link text, one h1 per page with headings in order, and visible keyboard focus.
 
 ### 📬 Store E-mail Addresses
 
@@ -127,17 +128,26 @@ Clean, contemporary and youthful: a minimalist layout with bold photography and 
 
 ## 🧰 Tech Stack
 
-HTML, CSS and JavaScript only. No frameworks, build tools or server.
+- **Bootstrap 5.3.9**, linked from the jsDelivr CDN (CSS and JavaScript bundle)
+- **HTML, CSS and JavaScript.** `css/style.css` is linked after Bootstrap and applies the brand kit.
+- **Google Fonts:** Poppins and Inter
+- **Hosting:** GitHub Pages
 
 ## 🗂️ Project Structure
 
 ```
 thread_haus/
-├── index.html        Home page (hero, shop, about)
-├── css/style.css     All styles, based on the brand kit
-├── js/main.js        Search, nav highlight, contact form, product page
-├── images/           Logo, product photos and icons
-└── pages/            Contact, privacy, terms and the 3 product pages
+├── index.html                Home page (hero, shop, about)
+├── css/style.css             Custom styles, loaded after Bootstrap
+├── js/main.js                Search, navbar, contact form, product page
+├── images/                   Logo, product photos, icons, size guide diagram
+└── pages/
+    ├── contact.html
+    ├── privacy.html
+    ├── terms.html
+    ├── dont-be-late.html
+    ├── everyday-comfort.html
+    └── do-good-work.html
 ```
 
 ## 🚀 How to Run
@@ -145,7 +155,7 @@ thread_haus/
 1. Clone or download this repository.
 2. Open `index.html` in any web browser.
 
-No installation is needed.
+An internet connection is needed to load Bootstrap and the fonts from their CDNs.
 
 ---
 

@@ -1,0 +1,10 @@
+# Course documents (not part of the website)
+*.pdf
+
+# Editor settings
+.vscode/
+
+# System files
+Thumbs.db
+desktop.ini
+.DS_Store
