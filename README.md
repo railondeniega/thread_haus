@@ -123,8 +123,8 @@ Clean, contemporary and youthful: a minimalist layout with bold photography and 
 | H1 | Poppins Bold 64 |
 | H2 | Poppins SemiBold 32 |
 | H3 | Poppins Regular 24 |
-| Body | Inter Regular 18 |
-| Small text | Inter Regular 16 |
+| Body | Inter Regular 16 |
+| Small text | Inter Regular Bold 14 |
 
 ## 🧰 Tech Stack
 
