@@ -8,3 +8,7 @@
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# Teammate reference files (merged into pages/contact.html and css/style.css)
+/contact.html
+/contact.css

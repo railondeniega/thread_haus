@@ -145,7 +145,7 @@ function initContactForm() {
         const data = {
             fullName: form.fullName.value.trim(),
             email: form.email.value.trim(),
-            subject: form.subject.value.trim(),
+            subject: form.topic.value,
             message: form.message.value.trim()
         };
 
