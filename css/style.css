@@ -454,6 +454,23 @@ a:focus-visible {
 .agreement .form-check-input:focus-visible { outline: 3px solid #005FCC; outline-offset: 3px; box-shadow: 0 0 0 2px #fff; }
 .agreement .form-check-label { cursor: pointer; }
 
+/* "Agreement confirmed" pop-up */
+.agreement-toast { border: 1px solid var(--th-charcoal); border-radius: 12px; box-shadow: 0 8px 24px rgba(31, 41, 55, 0.18); }
+.agreement-toast .toast-header { gap: 0.6rem; padding: 0.75rem 1rem; color: var(--th-charcoal); background: var(--th-yellow); border-bottom: 1px solid var(--th-charcoal); border-radius: 11px 11px 0 0; }
+.agreement-toast .toast-header strong { font-family: var(--th-font-heading); font-size: 1rem; font-weight: 600; }
+.agreement-toast .toast-body { padding: 0.9rem 1rem; font-size: 1rem; color: var(--th-charcoal); }
+.agreement-toast .btn-close:focus-visible { outline: 3px solid #005FCC; outline-offset: 2px; box-shadow: none; }
+.agreement-toast-icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #15803D;
+}
+.agreement-toast-icon::before { content: "\2713"; font-size: 0.75rem; font-weight: 700; color: #fff; }
+
 @media (max-width: 700px) {
     .legal-page h1 { margin-bottom: 1.75rem; font-size: clamp(1.875rem, 6vw, 2.25rem); }
     .legal-tabs .nav-link { padding: 0.65rem 0.4rem; }

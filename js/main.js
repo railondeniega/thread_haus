@@ -242,12 +242,21 @@ function initAgreement() {
     const box = document.querySelector(".agreement input[type='checkbox']");
     if (!box) return;
     const key = "threadhaus_" + box.id;
+    const toastEl = document.getElementById("agreementToast");
+
     try {
         box.checked = localStorage.getItem(key) === "yes";
-        box.addEventListener("change", () => localStorage.setItem(key, box.checked ? "yes" : "no"));
     } catch (err) {
         // Storage unavailable (e.g. private mode): the checkbox still works for this visit.
     }
+
+    box.addEventListener("change", () => {
+        try { localStorage.setItem(key, box.checked ? "yes" : "no"); } catch (err) { /* ignore */ }
+        // Pop-up message when the visitor ticks the box
+        if (box.checked && toastEl && typeof bootstrap !== "undefined") {
+            bootstrap.Toast.getOrCreateInstance(toastEl).show();
+        }
+    });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
