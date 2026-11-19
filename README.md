@@ -78,9 +78,9 @@ Gen Z and Millennials: students, young adults and young professionals who want s
 
 | Product | Description |
 | --- | --- |
-| **Don't Be Late Tee** | A fun go-to tee for early starts, busy schedules, and making every minute count. |
-| **Everyday Comfort Tee** | An everyday tee built for comfort that you can wear all day long, for side quests and homebody days alike. |
-| **Do Good Work Tee** | A timeless staple serving as a reminder to keep showing up, to keep improving, and to lead with integrity. |
+| **Don't Be Late Tee** | A timeless staple serving as a reminder to keep showing up, to keep improving, and to lead with integrity. Designed to fit seamlessly in your everyday rotation. |
+| **Everyday Comfort Tee** | A timeless staple serving as a reminder to keep showing up, to keep improving, and to lead with integrity. Designed to fit seamlessly in your everyday rotation. |
+| **Do Good Work Tee** | A timeless staple serving as a reminder to keep showing up, to keep improving, and to lead with integrity. Designed to fit seamlessly in your everyday rotation. |
 
 ## ✨ Features
 
