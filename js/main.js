@@ -237,7 +237,21 @@ function initProductPage() {
     setQty(qty.value);
 }
 
+/* ===== PRIVACY / TERMS: remember the "I have read and agree" checkbox ===== */
+function initAgreement() {
+    const box = document.querySelector(".agreement input[type='checkbox']");
+    if (!box) return;
+    const key = "threadhaus_" + box.id;
+    try {
+        box.checked = localStorage.getItem(key) === "yes";
+        box.addEventListener("change", () => localStorage.setItem(key, box.checked ? "yes" : "no"));
+    } catch (err) {
+        // Storage unavailable (e.g. private mode): the checkbox still works for this visit.
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+    initAgreement();
     initNavbarCollapse();
     initNavHighlight();
     initSearch();
