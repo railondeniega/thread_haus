@@ -1,269 +1,448 @@
 "use strict";
 
-/* ===== STORE E-MAIL ADDRESSES ===== */
-const INQUIRIES_EMAIL = "hello@examplewebsite142.com"; // contact form
-const ORDERS_EMAIL = "orders@examplewebsite142.com";   // Order Now buttons
+const INQUIRIES_EMAIL = "hello@examplewebsite142.com";  // contact form
+const ORDERS_EMAIL = "orders@examplewebsite142.com";    // Order Now buttons
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+function getHomeUrl() {
+    return window.location.pathname.includes("/pages/") ? "../index.html" : "index.html";
+}
 
 /* ===== SEARCH (navbar) ===== */
 function initSearch() {
-    const form = document.querySelector(".site-search");
-    if (!form) return;
-    const input = form.querySelector("input");
+    const forms = Array.from(document.querySelectorAll(".site-search"));
+    const productList = document.querySelector(".product-list");
+    const productColumns = productList ? Array.from(productList.querySelectorAll(".product-card")).map(card => card.closest(".col")) : [];
+    const homeUrl = getHomeUrl();
 
-    const list = document.querySelector(".product-list");
-    const cards = list ? Array.from(list.querySelectorAll(".product-card")) : [];
+    function filterProducts(rawQuery) {
+        if (!productList || !productColumns.length) return;
 
-    function filter(query) {
-        const q = query.trim().toLowerCase();
-        let visible = 0;
-        cards.forEach((card) => {
-            const name = card.querySelector(".card-title").textContent.toLowerCase();
-            const show = !q || name.includes(q);
-            card.closest(".col").hidden = !show;
-            if (show) visible++;
+        const query = rawQuery.trim().toLocaleLowerCase();
+        let matches = 0;
+
+        productColumns.forEach(column => {
+            const searchableText = column.textContent.toLocaleLowerCase();
+            const visible = !query || searchableText.includes(query);
+            column.hidden = !visible;
+            if (visible) matches++;
         });
-        const old = list.querySelector(".no-results");
-        if (old) old.remove();
-        if (q && visible === 0) {
-            const msg = document.createElement("p");
-            msg.className = "col-12 no-results";
-            msg.setAttribute("role", "status");
-            msg.textContent = 'No products found for "' + query.trim() + '".';
-            list.appendChild(msg);
+
+        let status = productList.querySelector(".search-results-status");
+        if (!status) {
+            status = document.createElement("p");
+            status.className = "col-12 search-results-status";
+            status.setAttribute("role", "status");
+            status.setAttribute("aria-live", "polite");
+            productList.append(status);
         }
+
+        status.textContent = query && matches === 0
+            ? `No products found for "${rawQuery.trim()}".`
+            : query
+                ? `${matches} product${matches === 1 ? "" : "s"} found.`
+                : "";
+        status.hidden = !query || matches > 0;
     }
 
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const query = input.value.trim();
-        if (cards.length) {
-            filter(query);
-            if (query) document.getElementById("shop").scrollIntoView({ behavior: "smooth" });
-        } else if (query) {
-            // Not on the home page: open the shop with the search applied.
-            const home = window.location.pathname.includes("/pages/") ? "../index.html" : "index.html";
-            window.location.href = home + "?search=" + encodeURIComponent(query) + "#shop";
+    forms.forEach(form => {
+        const input = form.querySelector('input[type="search"]');
+        if (!input) return;
+
+        // On the homepage, filter as the visitor types.
+        if (productColumns.length) {
+            input.addEventListener("input", () => filterProducts(input.value));
+
+            const preset = new URLSearchParams(window.location.search).get("search");
+            if (preset) {
+                input.value = preset;
+                filterProducts(preset);
+            }
         }
+
+        form.addEventListener("submit", event => {
+            event.preventDefault();
+            const query = input.value.trim();
+
+            if (productColumns.length) {
+                filterProducts(query);
+                if (query) document.querySelector("#shop")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                closeNavigation();
+                return;
+            }
+
+            if (query) {
+                const destination = new URL(homeUrl, window.location.href);
+                destination.searchParams.set("search", query);
+                destination.hash = "shop";
+                window.location.href = destination.href;
+            }
+        });
     });
-
-    if (cards.length) {
-        input.addEventListener("input", () => filter(input.value));
-        const preset = new URLSearchParams(window.location.search).get("search");
-        if (preset) {
-            input.value = preset;
-            filter(preset);
-        }
-    }
 }
 
 /* ===== NAVBAR: close the mobile menu after a link is chosen ===== */
-function initNavbarCollapse() {
-    const menu = document.getElementById("mainNav");
-    if (!menu || typeof bootstrap === "undefined") return;
-    menu.querySelectorAll(".nav-link").forEach((link) => {
-        link.addEventListener("click", () => {
-            if (menu.classList.contains("show")) bootstrap.Collapse.getOrCreateInstance(menu).hide();
-        });
+function closeNavigation() {
+    const menu = document.querySelector("#mainNav");
+    if (menu?.open) menu.close();
+    const toggler = document.querySelector('.navbar-toggler[aria-controls="mainNav"]');
+    toggler?.setAttribute("aria-expanded", "false");
+}
+
+function initNavigationDrawer() {
+    const menu = document.querySelector("#mainNav");
+    const toggler = document.querySelector('.navbar-toggler[aria-controls="mainNav"]');
+    if (!menu || !toggler) return;
+
+    toggler.addEventListener("click", () => {
+        if (menu.open) {
+            menu.close();
+        } else if (typeof menu.showModal === "function") {
+            menu.showModal();
+        }
+    });
+
+    menu.addEventListener("close", () => toggler.setAttribute("aria-expanded", "false"));
+    menu.addEventListener("cancel", () => toggler.setAttribute("aria-expanded", "false"));
+    menu.addEventListener("click", event => {
+        if (event.target === menu) menu.close();
+    });
+
+    menu.addEventListener("click", event => {
+        if (event.target.closest(".nav-link") && window.matchMedia("(max-width: 991.98px)").matches) {
+            menu.close();
+        }
+    });
+
+    toggler.addEventListener("click", () => {
+        toggler.setAttribute("aria-expanded", String(menu.open));
+    });
+
+    // Native dialog close buttons.
+    Array.from(menu.querySelectorAll('[data-bs-dismiss="drawer"]')).forEach(button => {
+        button.addEventListener("click", () => menu.close());
     });
 }
 
 /* ===== NAVBAR: highlight Home / Shop / About while scrolling the home page ===== */
 function initNavHighlight() {
-    const shop = document.getElementById("shop");
-    const about = document.getElementById("about");
-    if (!shop || !about) return; // only the home page has these sections
+    const header = document.querySelector(".site-header");
+    const links = Array.from(document.querySelectorAll(".site-header .nav-link"));
+    if (!header || !links.length) return;
 
-    const byKey = {};
-    document.querySelectorAll(".site-header .nav-link").forEach((a) => {
-        const href = a.getAttribute("href");
-        if (href === "#shop") byKey.shop = a;
-        else if (href === "#about") byKey.about = a;
-        else if (href === "index.html") byKey.home = a;
-    });
+    const shop = document.querySelector("#shop");
+    const about = document.querySelector("#about");
+    const isHome = Boolean(shop && about);
 
-    function setActive(key) {
-        Object.entries(byKey).forEach(([k, a]) => {
-            const on = k === key;
-            a.classList.toggle("active", on);
-            if (on) a.setAttribute("aria-current", "page");
-            else a.removeAttribute("aria-current");
+    function setActive(link) {
+        links.forEach(item => {
+            const active = item === link;
+            item.classList.toggle("active", active);
+            if (active) item.setAttribute("aria-current", "page");
+            else item.removeAttribute("aria-current");
         });
     }
 
-    let lockUntil = 0;
-
-    function update() {
-        if (Date.now() < lockUntil) return;
-        const line = 140;
-        const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
-        if (atBottom || about.getBoundingClientRect().top <= line) setActive("about");
-        else if (shop.getBoundingClientRect().top <= line) setActive("shop");
-        else setActive("home");
+    if (!isHome) {
+        const currentPath = window.location.pathname.replace(/\\/g, "/");
+        const current = links.find(link => {
+            const href = link.getAttribute("href");
+            if (!href) return false;
+            const target = new URL(href, window.location.href);
+            return target.pathname === currentPath && !target.hash;
+        });
+        if (current) setActive(current);
+        return;
     }
 
-    Object.entries(byKey).forEach(([key, a]) => {
-        a.addEventListener("click", (e) => {
-            e.preventDefault();
-            setActive(key);
-            lockUntil = Date.now() + 900; // ignore scroll updates during the smooth scroll
-            if (key === "home") window.scrollTo({ top: 0, behavior: "smooth" });
-            else document.getElementById(key).scrollIntoView({ behavior: "smooth" });
-            setTimeout(update, 950);
+    const homeLink = links.find(link => {
+        const href = link.getAttribute("href") || "";
+        return /(?:^|\/)index\.html(?:$|[?#])/.test(href);
+    });
+    const shopLink = links.find(link => (link.getAttribute("href") || "").endsWith("#shop"));
+    const aboutLink = links.find(link => (link.getAttribute("href") || "").endsWith("#about"));
+
+    function updateActive() {
+        const marker = header.getBoundingClientRect().bottom + 80;
+        const aboutTop = about.getBoundingClientRect().top;
+        const shopTop = shop.getBoundingClientRect().top;
+        const atPageBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+
+        if ((atPageBottom || aboutTop <= marker) && aboutLink) setActive(aboutLink);
+        else if (shopTop <= marker && shopLink) setActive(shopLink);
+        else if (homeLink) setActive(homeLink);
+    }
+
+    links.forEach(link => {
+        link.addEventListener("click", () => {
+            const href = link.getAttribute("href") || "";
+            if (href === "#shop" || href.endsWith("#shop") || href === "#about" || href.endsWith("#about") || href.endsWith("index.html")) {
+                setActive(link);
+            }
         });
     });
 
-    window.addEventListener("scroll", update, { passive: true });
-    update();
+    let frame = 0;
+    window.addEventListener("scroll", () => {
+        if (frame) return;
+        frame = window.requestAnimationFrame(() => {
+            updateActive();
+            frame = 0;
+        });
+    }, { passive: true });
+    window.addEventListener("hashchange", updateActive);
+    updateActive();
+}
+
+/* Product gallery */
+function initProductGallery() {
+    const gallery = document.querySelector("#productGallery");
+    if (!gallery) return;
+
+    const slides = Array.from(gallery.querySelectorAll(".carousel-item"));
+    const thumbs = Array.from(document.querySelectorAll(".product-thumbs .thumb"));
+    const previous = gallery.querySelector(".gallery-control-prev");
+    const next = gallery.querySelector(".gallery-control-next");
+    if (!slides.length) return;
+
+    let currentIndex = Math.max(0, slides.findIndex(slide => slide.classList.contains("active")));
+
+    function showSlide(index) {
+        currentIndex = (index + slides.length) % slides.length;
+
+        slides.forEach((slide, i) => {
+            const active = i === currentIndex;
+            slide.classList.toggle("active", active);
+            slide.hidden = !active;
+            slide.setAttribute("aria-hidden", String(!active));
+        });
+
+        thumbs.forEach((thumb, i) => {
+            const active = i === currentIndex;
+            thumb.classList.toggle("active", active);
+            if (active) {
+                thumb.setAttribute("aria-current", "true");
+                thumb.setAttribute("aria-pressed", "true");
+            } else {
+                thumb.removeAttribute("aria-current");
+                thumb.setAttribute("aria-pressed", "false");
+            }
+        });
+    }
+
+    previous?.addEventListener("click", () => showSlide(currentIndex - 1));
+    next?.addEventListener("click", () => showSlide(currentIndex + 1));
+
+    gallery.addEventListener("keydown", event => {
+        if (event.altKey || event.ctrlKey || event.metaKey) return;
+        if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            showSlide(currentIndex - 1);
+        } else if (event.key === "ArrowRight") {
+            event.preventDefault();
+            showSlide(currentIndex + 1);
+        }
+    });
+
+    thumbs.forEach((thumb, index) => {
+        thumb.addEventListener("click", () => showSlide(index));
+        thumb.addEventListener("keydown", event => {
+            if (event.key === "ArrowRight") {
+                event.preventDefault();
+                showSlide(index + 1);
+                thumbs[(index + 1) % thumbs.length]?.focus();
+            } else if (event.key === "ArrowLeft") {
+                event.preventDefault();
+                showSlide(index - 1);
+                thumbs[(index - 1 + thumbs.length) % thumbs.length]?.focus();
+            }
+        });
+    });
+
+    showSlide(currentIndex);
+}
+
+/* Native size-guide dialog. */
+function initSizeGuide() {
+    const guide = document.querySelector("#sizeGuide");
+    if (!guide) return;
+
+    Array.from(document.querySelectorAll('[data-bs-target="#sizeGuide"]')).forEach(trigger => {
+        trigger.addEventListener("click", event => {
+            event.preventDefault();
+            if (!guide.open) guide.showModal();
+        });
+    });
+
+    Array.from(guide.querySelectorAll('[data-bs-dismiss="drawer"]')).forEach(button => {
+        button.addEventListener("click", () => guide.close());
+    });
+
+    guide.addEventListener("click", event => {
+        if (event.target === guide) guide.close();
+    });
 }
 
 /* ===== CONTACT FORM: open the visitor's e-mail app with the message written ===== */
 function initContactForm() {
-    const form = document.getElementById("contactForm");
+    const form = document.querySelector("#contactForm");
     if (!form) return;
-    const status = form.querySelector(".form-status");
 
-    function show(message, type) {
+    const status = form.querySelector(".form-status");
+    const email = form.querySelector('input[name="email"]');
+
+    function showStatus(message, type) {
+        if (!status) return;
         status.textContent = message;
-        status.className = "form-status mt-3 mb-0 " + type;
+        status.className = `form-status mt-3 mb-0 ${type}`;
+        status.setAttribute("role", "status");
     }
 
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
+    function validateEmail() {
+        if (!email) return true;
+        const valid = EMAIL_PATTERN.test(email.value.trim());
+        email.setCustomValidity(valid ? "" : "Please enter a valid e-mail address.");
+        email.classList.toggle("is-invalid", !valid);
+        return valid;
+    }
 
-        // Bootstrap validation styles
-        const emailField = form.email;
-        emailField.setCustomValidity(EMAIL_PATTERN.test(emailField.value.trim()) ? "" : "invalid");
-        form.classList.add("was-validated");
+    email?.addEventListener("input", validateEmail);
+
+    form.addEventListener("submit", event => {
+        event.preventDefault();
+        validateEmail();
+
+        const requiredFields = Array.from(form.querySelectorAll("input[required], select[required], textarea[required]"));
+        requiredFields.forEach(field => field.classList.toggle("is-invalid", !field.checkValidity()));
+
         if (!form.checkValidity()) {
-            show("Please fill in all fields correctly.", "error");
-            const firstInvalid = form.querySelector(":invalid");
-            if (firstInvalid) firstInvalid.focus();
+            showStatus("Please complete all required fields correctly.", "error");
+            requiredFields.find(field => !field.checkValidity())?.focus();
             return;
         }
 
-        const data = {
-            fullName: form.fullName.value.trim(),
-            email: form.email.value.trim(),
-            subject: form.topic.value,
-            message: form.message.value.trim()
-        };
+        const fullName = form.querySelector('[name="fullName"]')?.value.trim() || "";
+        const subject = form.querySelector('[name="topic"]')?.value || "Website inquiry";
+        const message = form.querySelector('[name="message"]')?.value.trim() || "";
+        const emailAddress = email?.value.trim() || "";
+        const body = `Hi Thread Haus,\n\n${message}\n\nFrom: ${fullName}\nE-mail: ${emailAddress}`;
 
-        const body =
-            "Hi Thread Haus,\n\n" + data.message + "\n\n" +
-            "From: " + data.fullName + "\n" +
-            "E-mail: " + data.email;
-
-        window.location.href =
-            "mailto:" + INQUIRIES_EMAIL +
-            "?subject=" + encodeURIComponent(data.subject) +
-            "&body=" + encodeURIComponent(body);
-
-        show("Your e-mail app should now open with your message. Press Send there to deliver it to " + INQUIRIES_EMAIL + ".", "success");
+        showStatus("Your email app should open with your message. Press Send there to deliver it.", "success");
+        window.location.href = `mailto:${INQUIRIES_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
 
-    // Clear the e-mail error as soon as the address becomes valid
-    form.email.addEventListener("input", () => {
-        form.email.setCustomValidity(EMAIL_PATTERN.test(form.email.value.trim()) ? "" : "invalid");
+    Array.from(form.querySelectorAll("input[required], select[required], textarea[required]")).forEach(field => {
+        field.addEventListener("input", () => field.classList.toggle("is-invalid", !field.checkValidity()));
+        field.addEventListener("change", () => field.classList.toggle("is-invalid", !field.checkValidity()));
     });
 }
 
 /* ===== SOLO PRODUCT PAGE ===== */
-function initProductPage() {
+function initProductOrder() {
     const page = document.querySelector(".product-page");
     if (!page) return;
 
-    // Gallery thumbnails follow the Bootstrap carousel
-    const gallery = document.getElementById("productGallery");
-    const thumbs = Array.from(page.querySelectorAll(".product-thumbs .thumb"));
-    if (gallery) {
-        gallery.addEventListener("slide.bs.carousel", (e) => {
-            thumbs.forEach((t, i) => {
-                const on = i === e.to;
-                t.classList.toggle("active", on);
-                if (on) t.setAttribute("aria-current", "true");
-                else t.removeAttribute("aria-current");
-            });
-        });
-    }
-
-    // Quantity (1 to 10); the - and + buttons switch off at the limits
-    const qty = page.querySelector(".qty-input");
+    const quantity = page.querySelector(".qty-input");
     const minus = page.querySelector(".qty-minus");
     const plus = page.querySelector(".qty-plus");
-    const min = Number(qty.min) || 1;
-    const max = Number(qty.max) || 10;
-
-    function setQty(value) {
-        const n = Number.parseInt(value, 10);
-        const count = Number.isFinite(n) ? Math.min(max, Math.max(min, n)) : min;
-        qty.value = String(count);
-        minus.disabled = count <= min;
-        plus.disabled = count >= max;
-        updateOrderLink();
-    }
-
-    minus.addEventListener("click", () => setQty(Number(qty.value) - 1));
-    plus.addEventListener("click", () => setQty(Number(qty.value) + 1));
-    qty.addEventListener("change", () => setQty(qty.value));
-    qty.addEventListener("blur", () => setQty(qty.value));
-    page.querySelectorAll('input[name="size"]').forEach((r) => r.addEventListener("change", updateOrderLink));
-
-    // Order Now: e-mail to the orders address with the tee's details already written
     const orderLink = page.querySelector(".order-now");
-    const product = page.dataset.product;
-    const price = Number(page.dataset.price);
+    if (!quantity || !minus || !plus || !orderLink) return;
+
+    const minimum = Number(quantity.min) || 1;
+    const maximum = Number(quantity.max) || 10;
+    const product = page.dataset.product || "Thread Haus Tee";
+    const price = Number(page.dataset.price) || 0;
 
     function updateOrderLink() {
-        const selected = page.querySelector('input[name="size"]:checked');
-        const size = selected ? selected.value : "M";
-        const count = Number(qty.value);
-        const subject = "Order Request - " + product;
+        const selectedSize = page.querySelector('input[name="size"]:checked')?.value || "M";
+        const count = Number(quantity.value) || minimum;
+        const subtotal = price * count;
+        const subject = `Order Request - ${product}`;
         const body = [
             "I would like to place an order for the following item:",
             "",
-            "Product: " + product,
-            "Size: " + size,
-            "Quantity: " + count,
-            "Price per shirt: PHP " + price.toFixed(2),
-            "Subtotal: PHP " + (price * count).toFixed(2),
+            `Product: ${product}`,
+            `Size: ${selectedSize}`,
+            `Quantity: ${count}`,
+            `Price per shirt: PHP ${price.toFixed(2)}`,
+            `Subtotal: PHP ${subtotal.toFixed(2)}`,
             "",
             "Please confirm my order and let me know the next steps for payment and delivery.",
             "",
             "Thank you!"
         ].join("\r\n");
-        orderLink.href = "mailto:" + ORDERS_EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+
+        orderLink.href = `mailto:${ORDERS_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
-    setQty(qty.value);
+
+    function setQuantity(value) {
+        const parsed = Number.parseInt(value, 10);
+        const safeValue = Number.isFinite(parsed)
+            ? Math.min(maximum, Math.max(minimum, parsed))
+            : minimum;
+
+        quantity.value = String(safeValue);
+        minus.disabled = safeValue <= minimum;
+        plus.disabled = safeValue >= maximum;
+        updateOrderLink();
+    }
+
+    minus.addEventListener("click", () => setQuantity(Number(quantity.value) - 1));
+    plus.addEventListener("click", () => setQuantity(Number(quantity.value) + 1));
+    quantity.addEventListener("change", () => setQuantity(quantity.value));
+    quantity.addEventListener("blur", () => setQuantity(quantity.value));
+    Array.from(page.querySelectorAll('input[name="size"]')).forEach(radio => radio.addEventListener("change", updateOrderLink));
+
+    setQuantity(quantity.value);
 }
 
 /* ===== PRIVACY / TERMS: remember the "I have read and agree" checkbox ===== */
 function initAgreement() {
-    const box = document.querySelector(".agreement input[type='checkbox']");
-    if (!box) return;
-    const key = "threadhaus_" + box.id;
-    const toastEl = document.getElementById("agreementToast");
+    const checkbox = document.querySelector(".agreement input[type='checkbox']");
+    if (!checkbox) return;
+
+    const storageKey = `threadhaus_${checkbox.id}`;
+    const toast = document.querySelector("#agreementToast");
+    const closeToast = (toast || document).querySelector(".btn-close");
 
     try {
-        box.checked = localStorage.getItem(key) === "yes";
-    } catch (err) {
-        // Storage unavailable (e.g. private mode): the checkbox still works for this visit.
+        checkbox.checked = localStorage.getItem(storageKey) === "yes";
+    } catch (_) {
+        // The checkbox remains usable when browser storage is unavailable.
     }
 
-    box.addEventListener("change", () => {
-        try { localStorage.setItem(key, box.checked ? "yes" : "no"); } catch (err) { /* ignore */ }
-        // Pop-up message when the visitor ticks the box
-        if (box.checked && toastEl && typeof bootstrap !== "undefined") {
-            bootstrap.Toast.getOrCreateInstance(toastEl).show();
+    function hideToast() {
+        if (!toast) return;
+        toast.classList.remove("show");
+        toast.setAttribute("aria-hidden", "true");
+    }
+
+    checkbox.addEventListener("change", () => {
+        try {
+            localStorage.setItem(storageKey, checkbox.checked ? "yes" : "no");
+        } catch (_) {
+            // Ignore storage restrictions.
+        }
+
+        if (checkbox.checked && toast) {
+            toast.classList.add("show");
+            toast.setAttribute("aria-hidden", "false");
+        } else {
+            hideToast();
         }
     });
+
+    closeToast?.addEventListener("click", hideToast);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    initAgreement();
-    initNavbarCollapse();
+    initNavigationDrawer();
     initNavHighlight();
     initSearch();
+    initProductGallery();
+    initSizeGuide();
     initContactForm();
-    initProductPage();
+    initProductOrder();
+    initAgreement();
 });
