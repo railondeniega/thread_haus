@@ -120,15 +120,15 @@ Clean, contemporary and youthful: a minimalist layout with bold photography and 
 
 | Use | Font |
 | --- | --- |
-| H1 | Poppins Bold 64 |
-| H2 | Poppins SemiBold 32 |
-| H3 | Poppins Regular 24 |
+| H1 | Poppins Bold 44 |
+| H2 | Poppins SemiBold 28 |
+| H3 | Poppins Regular 22 |
 | Body | Inter Regular 16 |
 | Small text | Inter Regular Bold 14 |
 
 ## 🧰 Tech Stack
 
-- **Bootstrap 5.3.9**, linked from the jsDelivr CDN (CSS and JavaScript bundle)
+- **Bootstrap 6.0.0-alpha.1**, linked from the jsDelivr CDN (CSS and JavaScript bundle)
 - **HTML, CSS and JavaScript.** `css/style.css` is linked after Bootstrap and applies the brand kit.
 - **Google Fonts:** Poppins and Inter
 - **Hosting:** GitHub Pages
