@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy | Thread Haus</title>
     <meta name="description" content="How Thread Haus collects, uses and protects your personal information.">
 
-    <!-- Bootstrap 5.3 (CDN) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-yEPZ7jP9S0QKiUQ0m3jjsO4ProIW7wvR9gXkI7JOGa2XVsw53Yke2bsdkBbjmmiX" crossorigin="anonymous">
+    <!-- Bootstrap 6.0.0-alpha.1 (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
 
     <!-- Brand fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,20 +18,23 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <a href="#main" class="skip-link visually-hidden-focusable">Skip to main content</a>
-
-    <!-- HEADER / NAVBAR -->
+<!-- HEADER / NAVBAR -->
     <header class="site-header sticky-top">
-        <nav class="navbar navbar-expand-lg bg-white" aria-label="Main navigation">
+        <nav class="navbar lg:navbar-expand" aria-label="Main navigation">
             <div class="container">
                 <a class="navbar-brand" href="../index.html">
                     <img src="../images/logo.png" alt="Thread Haus home" width="140" height="44">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="btn-icon navbar-toggler" type="button" data-bs-toggle="drawer" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="mainNav">
-                    <ul class="navbar-nav me-auto ms-lg-4">
+                <dialog class="drawer drawer-end lg:drawer site-nav-drawer" id="mainNav" tabindex="-1" aria-label="Main navigation menu">
+                    <div class="drawer-header">
+                        <span class="drawer-title">Menu</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="drawer" aria-label="Close navigation"></button>
+                    </div>
+                    <div class="drawer-body">
+                    <ul class="navbar-nav me-auto lg:ms-4">
                         <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="../index.html#shop">Shop</a></li>
                         <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
@@ -40,12 +43,13 @@
                     <form class="site-search" role="search">
                         <div class="input-group">
                             <input class="form-control" type="search" name="q" placeholder="What are you looking for?" aria-label="Search products">
-                            <button class="btn btn-dark" type="submit" aria-label="Search">
+                            <button class="btn-solid theme-dark" type="submit" aria-label="Search">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
                             </button>
                         </div>
                     </form>
-                </div>
+                    </div>
+                </dialog>
             </div>
         </nav>
     </header>
@@ -168,9 +172,9 @@
             </article>
         </div>
 
-        <div class="agreement form-check">
-            <input class="form-check-input" type="checkbox" id="agree-privacy" name="agree-privacy">
-            <label class="form-check-label" for="agree-privacy">I have read and agree to the website's Privacy Policy</label>
+        <div class="agreement">
+            <input class="agreement-input" type="checkbox" id="agree-privacy" name="agree-privacy">
+            <label class="agreement-label" for="agree-privacy">I have read and agree to the website's Privacy Policy</label>
         </div>
     </main>
 
@@ -188,7 +192,7 @@
 
     <!-- FOOTER -->
     <footer class="site-footer">
-        <div class="container py-4 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+        <div class="container py-4 d-flex flex-column md:flex-row justify-content-between align-items-center gap-3">
             <p class="mb-0">Thread Haus &middot; &copy; 2026 &middot; All rights reserved.</p>
             <nav aria-label="Footer navigation">
                 <ul class="footer-links">
@@ -198,8 +202,6 @@
             </nav>
         </div>
     </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js" integrity="sha384-WyOxWvTyr1QaMPfiPJSv76iReVthorl5uWlFtZPyK0IEB0hGzo9y5Bp9mYanr8Bu" crossorigin="anonymous"></script>
-    <script src="../js/main.js"></script>
+    <script src="../js/main.js" defer></script>
 </body>
 </html>
