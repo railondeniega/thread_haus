@@ -176,8 +176,13 @@ a:focus-visible {
 
 /* HERO SECTION */
 
+
 .hero {
     width: 100%;
+    max-width: 1440px;
+    height: calc(100vh - 80px);
+    min-height: 650px;
+    margin: 0 auto;
     background: #ffffff;
     overflow: hidden;
 }
@@ -185,8 +190,8 @@ a:focus-visible {
 .hero > .row {
     display: grid !important;
     grid-template-columns: 51.5% 48.5%;
-    min-height: 100%;
     width: 100%;
+    height: 100%;
     margin: 0;
     gap: 0;
     align-items: stretch;
@@ -199,11 +204,13 @@ a:focus-visible {
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+
     width: 100%;
     min-width: 0;
-    padding: 5rem clamp(2rem, 5.5vw, 5.5rem);
     box-sizing: border-box;
-    margin-bottom: 7rem;
+
+    padding: 4rem 3.5rem;
+    margin: 0;
 }
 
 .hero-label {
@@ -214,7 +221,6 @@ a:focus-visible {
     letter-spacing: -0.02em;
     text-transform: uppercase;
 }
-
 
 .hero-content h1 {
     margin-top: 0;
@@ -228,7 +234,7 @@ a:focus-visible {
 }
 
 .hero-description {
-    max-width: 650px;
+    max-width: 540px;
     margin-top: 0;
     margin-bottom: 5.5rem;
     font-family: 'Inter', sans-serif;
@@ -237,6 +243,48 @@ a:focus-visible {
     line-height: 1.35;
     letter-spacing: -0.025em;
     color: #1F2937;
+}
+
+.hero-image {
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.hero-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+}
+
+
+/* RESPONSIVE ADJUSTMENTS */
+
+@media (max-width: 991px) {
+    .hero {
+        max-width: 100%;
+    }
+
+    .hero > .row {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .hero-content {
+        padding: 3rem 2rem;
+    }
+
+    .hero-content h1 {
+        font-size: 36px;
+    }
+
+    .hero-description {
+        font-size: 18px;
+    }
 }
 
 /* Desktop */
@@ -277,7 +325,7 @@ a:focus-visible {
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: cover;
+    object-fit: contain;
     object-position: 100% center;
 }
 
