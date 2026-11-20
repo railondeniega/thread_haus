@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Do Good Work Tee | Thread Haus</title>
     <meta name="description" content="Do Good Work Tee by Thread Haus. Unisex sizes XS to XXL, PHP 499.">
 
-    <!-- Bootstrap 5.3 (CDN) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-yEPZ7jP9S0QKiUQ0m3jjsO4ProIW7wvR9gXkI7JOGa2XVsw53Yke2bsdkBbjmmiX" crossorigin="anonymous">
+    <!-- Bootstrap 6.0.0-alpha.1 (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
 
     <!-- Brand fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,20 +18,23 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <a href="#main" class="skip-link visually-hidden-focusable">Skip to main content</a>
-
-    <!-- HEADER / NAVBAR -->
+<!-- HEADER / NAVBAR -->
     <header class="site-header sticky-top">
-        <nav class="navbar navbar-expand-lg bg-white" aria-label="Main navigation">
+        <nav class="navbar lg:navbar-expand" aria-label="Main navigation">
             <div class="container">
                 <a class="navbar-brand" href="../index.html">
                     <img src="../images/logo.png" alt="Thread Haus home" width="140" height="44">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="btn-icon navbar-toggler" type="button" data-bs-toggle="drawer" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="mainNav">
-                    <ul class="navbar-nav me-auto ms-lg-4">
+                <dialog class="drawer drawer-end lg:drawer site-nav-drawer" id="mainNav" tabindex="-1" aria-label="Main navigation menu">
+                    <div class="drawer-header">
+                        <span class="drawer-title">Menu</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="drawer" aria-label="Close navigation"></button>
+                    </div>
+                    <div class="drawer-body">
+                    <ul class="navbar-nav me-auto lg:ms-4">
                         <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="../index.html#shop">Shop</a></li>
                         <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
@@ -40,22 +43,23 @@
                     <form class="site-search" role="search">
                         <div class="input-group">
                             <input class="form-control" type="search" name="q" placeholder="What are you looking for?" aria-label="Search products">
-                            <button class="btn btn-dark" type="submit" aria-label="Search">
+                            <button class="btn-solid theme-dark" type="submit" aria-label="Search">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
                             </button>
                         </div>
                     </form>
-                </div>
+                    </div>
+                </dialog>
             </div>
         </nav>
     </header>
 
-    <main id="main" class="container product-page py-4 py-lg-5" data-product="Do Good Work Tee" data-price="499">
+    <main id="main" class="container product-page py-4 lg:py-5" data-product="Do Good Work Tee" data-price="499">
 
-        <div class="row g-4 g-lg-5">
+        <div class="row g-4 lg:g-5">
             <!-- GALLERY -->
-            <section class="col-lg-6" aria-label="Product photos">
-                <div id="productGallery" class="carousel slide product-gallery">
+            <section class="lg:col-6" aria-label="Product photos">
+                <div id="productGallery" class="carousel slide carousel-overlay product-gallery">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <img src="../images/do-good-work-front.jpg" class="d-block w-100" alt="White raglan T-shirt with black sleeves and Do Good Work chest graphic.">
@@ -67,29 +71,29 @@
                             <img src="../images/do-good-work-model-worn.png" class="d-block w-100" alt="Model wearing the white Do Good Work raglan T-shirt with black sleeves.">
                         </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#productGallery" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous photo</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#productGallery" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next photo</span>
-                    </button>
+                    <div class="carousel-overlay-controls" aria-label="Product image controls">
+                        <button class="gallery-control gallery-control-prev" type="button" aria-label="Previous photo">
+                            <span aria-hidden="true">&#8249;</span>
+                        </button>
+                        <button class="gallery-control gallery-control-next" type="button" aria-label="Next photo">
+                            <span aria-hidden="true">&#8250;</span>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="row g-2 mt-2 product-thumbs">
                     <div class="col-4">
-                        <button type="button" class="thumb active" data-bs-target="#productGallery" data-bs-slide-to="0" aria-current="true">
+                        <button type="button" class="thumb active" aria-current="true">
                             <img src="../images/do-good-work-front.jpg" alt="Show front of the T-shirt">
                         </button>
                     </div>
                     <div class="col-4">
-                        <button type="button" class="thumb" data-bs-target="#productGallery" data-bs-slide-to="1">
+                        <button type="button" class="thumb">
                             <img src="../images/do-good-work-folded.png" alt="Show folded T-shirt detail">
                         </button>
                     </div>
                     <div class="col-4">
-                        <button type="button" class="thumb" data-bs-target="#productGallery" data-bs-slide-to="2">
+                        <button type="button" class="thumb">
                             <img src="../images/do-good-work-model-worn.png" alt="Show model wearing the T-shirt">
                         </button>
                     </div>
@@ -98,12 +102,12 @@
             <!-- /GALLERY -->
 
             <!-- DETAILS -->
-            <section class="col-lg-6 product-info" aria-labelledby="product-title">
+            <section class="lg:col-6 product-info" aria-labelledby="product-title">
                 <h1 id="product-title">Do Good Work Tee</h1>
                 <p class="product-price">&#8369;499</p>
 
                 <div class="product-block">
-                    <h2>Product Description</h2>
+                    <p class="field-label product-description-label">Product Description</p>
                     <p class="product-description">A timeless staple serving as a reminder to keep showing up, to keep improving, and to lead with integrity. Designed to fit seamlessly in your everyday rotation.</p>
                     <p class="product-meta">Unisex sizing &bull; 100% combed cotton &bull; Designed by Thread Haus</p>
                 </div>
@@ -112,36 +116,30 @@
                     <fieldset>
                         <legend class="field-label">Sizes</legend>
                         <div class="size-options">
-                            <input type="radio" class="btn-check" name="size" id="size-xs" value="XS" autocomplete="off">
-                            <label class="btn btn-size" for="size-xs">XS</label>
-                            <input type="radio" class="btn-check" name="size" id="size-s" value="S" autocomplete="off">
-                            <label class="btn btn-size" for="size-s">S</label>
-                            <input type="radio" class="btn-check" name="size" id="size-m" value="M" autocomplete="off">
-                            <label class="btn btn-size" for="size-m">M</label>
-                            <input type="radio" class="btn-check" name="size" id="size-l" value="L" autocomplete="off">
-                            <label class="btn btn-size" for="size-l">L</label>
-                            <input type="radio" class="btn-check" name="size" id="size-xl" value="XL" autocomplete="off" checked>
-                            <label class="btn btn-size" for="size-xl">XL</label>
-                            <input type="radio" class="btn-check" name="size" id="size-xxl" value="XXL" autocomplete="off">
-                            <label class="btn btn-size" for="size-xxl">XXL</label>
+                            <label class="size-choice"><input type="radio" name="size" value="XS" autocomplete="off"><span>XS</span></label>
+                            <label class="size-choice"><input type="radio" name="size" value="S" autocomplete="off"><span>S</span></label>
+                            <label class="size-choice"><input type="radio" name="size" value="M" autocomplete="off"><span>M</span></label>
+                            <label class="size-choice"><input type="radio" name="size" value="L" autocomplete="off"><span>L</span></label>
+                            <label class="size-choice"><input type="radio" name="size" value="XL" autocomplete="off" checked><span>XL</span></label>
+                            <label class="size-choice"><input type="radio" name="size" value="XXL" autocomplete="off"><span>XXL</span></label>
                         </div>
                     </fieldset>
                     <div class="size-guide-link">
-                        <button type="button" class="btn btn-link" data-bs-toggle="offcanvas" data-bs-target="#sizeGuide" aria-controls="sizeGuide">View Size Guide</button>
+                        <button type="button" class="size-guide-link-button" data-bs-toggle="drawer" data-bs-target="#sizeGuide" aria-controls="sizeGuide">View Size Guide</button>
                     </div>
 
                     <label for="quantity" class="field-label d-block">Quantity</label>
                     <div class="quantity">
-                        <button class="btn qty-btn qty-minus" type="button" aria-label="Decrease quantity">&minus;</button>
+                        <button class="qty-btn qty-minus" type="button" aria-label="Decrease quantity">&minus;</button>
                         <input type="number" class="form-control qty-input" id="quantity" value="1" min="1" max="10" step="1" inputmode="numeric" aria-describedby="quantityHelp">
-                        <button class="btn qty-btn qty-plus" type="button" aria-label="Increase quantity">+</button>
+                        <button class="qty-btn qty-plus" type="button" aria-label="Increase quantity">+</button>
                     </div>
                     <p id="quantityHelp" class="visually-hidden">Choose a quantity from 1 to 10.</p>
                     <p class="stock-status">In Stock</p>
 
                     <div class="product-actions">
-                        <a href="mailto:orders@examplewebsite142.com" class="btn btn-dark order-now">Order Now</a>
-                        <a href="../index.html#shop" class="btn btn-outline-dark explore-more">Explore more tees</a>
+                        <a href="mailto:orders@examplewebsite142.com" class="btn-solid theme-dark order-now">Order Now</a>
+                        <a href="../index.html#shop" class="btn-outline theme-dark explore-more">Explore more tees</a>
                     </div>
                     <p class="order-note">Your order will be confirmed via email before processing.</p>
                 </div>
@@ -150,12 +148,12 @@
     </main>
 
     <!-- SIZE GUIDE PANEL (slides in from the right) -->
-    <div class="offcanvas offcanvas-end size-guide" tabindex="-1" id="sizeGuide" aria-labelledby="sizeGuideTitle">
-        <div class="offcanvas-header">
-            <h2 class="offcanvas-title" id="sizeGuideTitle">Size Guide</h2>
-            <button type="button" class="size-guide-close" data-bs-dismiss="offcanvas" aria-label="Close size guide">&times;</button>
+    <dialog class="drawer drawer-end size-guide" tabindex="-1" id="sizeGuide" aria-labelledby="sizeGuideTitle">
+        <div class="drawer-header">
+            <h2 class="drawer-title" id="sizeGuideTitle">Size Guide</h2>
+            <button type="button" class="size-guide-close" data-bs-dismiss="drawer" aria-label="Close size guide">&times;</button>
         </div>
-        <div class="offcanvas-body">
+        <div class="drawer-body">
             <section aria-labelledby="measurementTableTitle">
                 <div class="size-guide-section-heading">
                     <h3 id="measurementTableTitle">Garment measurements</h3>
@@ -187,11 +185,11 @@
                 </figure>
             </section>
         </div>
-    </div>
+    </dialog>
 
     <!-- FOOTER -->
     <footer class="site-footer">
-        <div class="container py-4 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+        <div class="container py-4 d-flex flex-column md:flex-row justify-content-between align-items-center gap-3">
             <p class="mb-0">Thread Haus &middot; &copy; 2026 &middot; All rights reserved.</p>
             <nav aria-label="Footer navigation">
                 <ul class="footer-links">
@@ -201,8 +199,6 @@
             </nav>
         </div>
     </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js" integrity="sha384-WyOxWvTyr1QaMPfiPJSv76iReVthorl5uWlFtZPyK0IEB0hGzo9y5Bp9mYanr8Bu" crossorigin="anonymous"></script>
-    <script src="../js/main.js"></script>
+    <script src="../js/main.js" defer></script>
 </body>
 </html>
