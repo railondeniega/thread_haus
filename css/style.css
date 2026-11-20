@@ -238,6 +238,31 @@ a:focus-visible {
     color: #1F2937;
 }
 
+/* Desktop */
+.desktop-description {
+    display: block;
+}
+
+.mobile-description {
+    display: none;
+}
+
+/* Mobile */
+@media (max-width: 575.98px) {
+    .desktop-description {
+        display: none;
+    }
+
+    .mobile-description {
+        display: block;
+    }
+
+    .no-break {
+        white-space: nowrap;
+    }
+}
+
+
 .hero-image {
     grid-column: 2;
     grid-row: 1;
