@@ -238,30 +238,6 @@ a:focus-visible {
     color: #1F2937;
 }
 
-/* Desktop */
-.desktop-description {
-    display: block;
-}
-
-.mobile-description {
-    display: none;
-}
-
-/* Mobile */
-@media (max-width: 575.98px) {
-    .desktop-description {
-        display: none;
-    }
-
-    .mobile-description {
-        display: block;
-    }
-
-    .no-break {
-        white-space: nowrap;
-    }
-}
-
 
 .hero-image {
     grid-column: 2;
@@ -395,7 +371,7 @@ a:focus-visible {
 
 .product-card img[src*="dont-be-late-front"],
 .product-card img[src*="everyday-comfort-front"] { padding: 7.5%; }
-.product-card img[src*="do-good-work-front"] { padding: 10%; }
+.product-card img[src*="do-good-work_mockup"] { padding: 10%; }
 .product-card .card-title {   margin-bottom: 0.25rem; }
 
 .no-results { font-size: 1rem; text-align: center; }
